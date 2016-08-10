@@ -1,5 +1,3 @@
-require_relative '../db_setup'
-
 #  last_name   :string
 #  first_name  :string
 #
