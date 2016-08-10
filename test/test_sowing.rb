@@ -1,4 +1,4 @@
-class SowingTest < TestBase
+class TestSowing < Sowing::TestBase
   sub_test_case 'create' do
     test 'insert users from csv' do
       Sowing.create(User)
