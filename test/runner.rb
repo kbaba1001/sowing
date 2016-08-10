@@ -28,7 +28,7 @@ Dir[test_dir.join('fixtures/models/*.rb')].each {|f| require f }
 ## configure test/unit
 require 'test/unit'
 
-class TestBase < Test::Unit::TestCase
+class Sowing::TestBase < Test::Unit::TestCase
   def self.startup
     DatabaseCleaner[:active_record].strategy = :transaction
     DatabaseCleaner[:active_record].clean_with(:truncation)
@@ -43,7 +43,7 @@ class TestBase < Test::Unit::TestCase
   end
 end
 
-# $VERBOSE = true
+$VERBOSE = true
 $KCODE = 'utf8' unless ''.respond_to?(:encoding)
 
 exit Test::Unit::AutoRunner.run(true, test_dir)
