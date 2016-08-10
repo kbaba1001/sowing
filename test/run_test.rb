@@ -8,6 +8,7 @@ lib_dir  = base_dir.join('lib')
 test_dir = base_dir.join('test')
 
 $LOAD_PATH.unshift(lib_dir)
+require 'sowing'
 
 ## setup database
 require 'active_record'

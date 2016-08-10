@@ -1,5 +1,9 @@
 require "sowing/version"
 
 module Sowing
-  # Your code goes here...
+  class << self
+    def create(klass)
+      # klass に対して csv から読み込んだデータを入れる
+    end
+  end
 end
