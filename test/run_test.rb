@@ -9,7 +9,7 @@ test_dir = base_dir.join('test')
 
 $LOAD_PATH.unshift(lib_dir)
 
-## setup database and active record
+## setup database
 require 'active_record'
 require 'sqlite3'
 require 'database_cleaner'
@@ -24,7 +24,9 @@ SQL
 ### load models
 Dir[test_dir.join('fixtures/models/*.rb')].each {|f| require f }
 
-### setup
+## configure test/unit
+require 'test/unit'
+
 class TestBase < Test::Unit::TestCase
   def self.startup
     DatabaseCleaner[:active_record].strategy = :transaction
@@ -39,9 +41,6 @@ class TestBase < Test::Unit::TestCase
     DatabaseCleaner[:active_record].clean
   end
 end
-
-## configure test/unit
-require 'test/unit'
 
 # $VERBOSE = true
 $KCODE = 'utf8' unless ''.respond_to?(:encoding)
