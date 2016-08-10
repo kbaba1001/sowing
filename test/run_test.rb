@@ -13,4 +13,14 @@ $KCODE = "utf8" unless "".respond_to?(:encoding)
 require 'test/unit'
 Dir[test_dir.join('fixtures/models/*.rb')].each {|f| require f }
 
+class TestBase < Test::Unit::TestCase
+  setup do
+    p :setup
+  end
+
+  teardown do
+    p :treadown
+  end
+end
+
 exit Test::Unit::AutoRunner.run(true, test_dir)
