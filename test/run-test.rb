@@ -27,6 +27,7 @@ Dir[test_dir.join('fixtures/models/*.rb')].each {|f| require f }
 
 ## configure test/unit
 require 'test/unit'
+require 'byebug'
 
 class Sowing::TestBase < Test::Unit::TestCase
   def self.startup
