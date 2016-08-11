@@ -42,6 +42,10 @@ class Sowing::TestBase < Test::Unit::TestCase
   teardown do
     DatabaseCleaner[:active_record].clean
   end
+
+  def match_array?(expect, actual)
+    expect.sort == actual.sort
+  end
 end
 
 $VERBOSE = true

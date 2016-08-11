@@ -5,8 +5,8 @@ class TestRunner < Sowing::TestBase
 
       runner.create(User)
 
-      assert { User.pluck(:first_name).sort == %w(Carlotta 中平).sort }
-      assert { User.pluck(:last_name).sort == %w(Wilkinson 薫).sort }
+      assert { match_array?(User.pluck(:first_name), %w(Carlotta 中平)) }
+      assert { match_array?(User.pluck(:last_name), %w(Wilkinson 薫)) }
     end
   end
 end
