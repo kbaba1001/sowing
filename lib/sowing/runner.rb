@@ -7,10 +7,24 @@ class Sowing::Runner
   end
 
   def create(klass)
+    find_csv_file(klass) do |file|
+      @csv_strategy.create(klass, file)
+    end
+  end
+
+  def create_or_do_nothing(klass, finding_key)
+    find_csv_file(klass) do |file|
+      @csv_strategy.create_or_do_nothing(klass, file, finding_key)
+    end
+  end
+
+  private
+
+  def find_csv_file(klass)
     csv_file = data_directory.join("#{klass.to_s.downcase.pluralize}.csv")
 
     if csv_file.exist?
-      @csv_strategy.read(klass, csv_file)
+      yield(csv_file)
     end
   end
 end
