@@ -18,6 +18,12 @@ class Sowing::Runner
     end
   end
 
+  def create_or_update(klass, finding_key)
+    # find_csv_file(klass) do |file|
+    #   @csv_strategy.create_or_do_nothing(klass, file, finding_key)
+    # end
+  end
+
   private
 
   def find_csv_file(klass)
