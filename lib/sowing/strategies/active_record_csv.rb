@@ -4,21 +4,32 @@ module Sowing
   module Strategies
     class ActiveRecordCsv
       def create(klass, csv_filename)
-        CSV.read(csv_filename, headers: true).each do |row|
-          print 'create: '
-          p klass.create!(row.to_hash)
+        read_csv(csv_filename).each do |row|
+          object = klass.create!(row.to_hash)
+
+          print_object_info(object)
         end
       end
 
       def create_or_do_nothing(klass, csv_filename, finding_key)
-        CSV.read(csv_filename, headers: true).each do |row|
+        read_csv(csv_filename).each do |row|
           klass.find_or_create_by!(finding_key => row[finding_key.to_s]) do |object|
-            object.update(row.to_hash)
+            object.update!(row.to_hash)
 
-            print 'create: '
-            p object
+            print_object_info(object)
           end
         end
+      end
+
+      private
+
+      def read_csv(csv_filename)
+        CSV.read(csv_filename, headers: true)
+      end
+
+      def print_object_info(object)
+        print 'create: '
+        p object
       end
     end
   end
