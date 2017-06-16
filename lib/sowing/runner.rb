@@ -27,10 +27,12 @@ class Sowing::Runner
   private
 
   def find_csv_file(klass, filename: nil)
-    csv_file = data_directory.join(filename || "#{klass.to_s.downcase.pluralize}.csv")
+    csv_file = data_directory.join(filename || "#{klass.to_s.underscore.pluralize}.csv")
 
     if csv_file.exist?
       yield(csv_file)
+    else
+      raise "not found: #{csv_file}"
     end
   end
 end
