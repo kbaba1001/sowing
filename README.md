@@ -1,8 +1,6 @@
 # Sowing
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sowing`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+seed data handling for Rails apps.
 
 ## Installation
 
@@ -22,14 +20,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+db/seeds/
+
+```ruby
+require 'sowing'
+
+runner = Sowing::Runner.new
+
+# if exist db/seeds/users.(csv|yaml|yml), read data
+runner.create(User)
+
+runner.create_or_do_nothing(User, :first_name)
+runner.create_or_update(User, :first_name)
+
+# change data root directory
+sowing = Sowing::Runner.new(data_directory: Rails.root.join('db/seeds/development'))
+```
 
 ## Development
 
 ### Run tests
 
-    $ bundle exec rake
+    $ bundle exec ruby test/run-test.rb
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sowing.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kbaba1001/sowing.
