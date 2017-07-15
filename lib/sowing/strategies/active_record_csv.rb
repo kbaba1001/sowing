@@ -1,8 +1,9 @@
+require_relative 'abstract_strategy'
 require 'csv'
 
 module Sowing
   module Strategies
-    class ActiveRecordCsv
+    class ActiveRecordCsv < AbstractStrategy
       def create(klass, csv_filename)
         read_csv(csv_filename).each do |row|
           object = klass.create!(row.to_hash)
