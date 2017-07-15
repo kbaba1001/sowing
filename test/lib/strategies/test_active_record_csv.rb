@@ -1,4 +1,4 @@
-class TestRunner < Sowing::TestBase
+class Strategies::TestActiveRecordCsv < Sowing::TestBase
   setup do
     @runner = Sowing::Runner.new(data_directory: 'test/fixtures/csv')
   end
