@@ -46,3 +46,7 @@ sowing = Sowing::Runner.new(data_directory: Rails.root.join('db/seeds/developmen
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/kbaba1001/sowing.
+
+## License
+
+MIT
