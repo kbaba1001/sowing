@@ -31,7 +31,7 @@ class Sowing::Runner
       if file.exist?
         yield(file, select_strategy(file.extname[1..-1]))
       else
-        raise "not found: #{file}"
+        raise DataFileNotFound.new("not found: #{file}")
       end
 
       return
@@ -43,7 +43,7 @@ class Sowing::Runner
     if ext
       yield(Pathname("#{pathname}.#{ext}"), select_strategy(ext))
     else
-      raise "not found: #{pathanme}.(#{Sowing::Configuration.config.extensions.join('|')})"
+      raise DataFileNotFound.new("not found: #{pathanme}.(#{Sowing::Configuration.config.extensions.join('|')})")
     end
   end
 
@@ -53,7 +53,7 @@ class Sowing::Runner
     if strategy_klass
       strategy_klass.new
     else
-      raise "strategy not found: extension #{ext}"
+      raise StrategyNotFound.new("strategy not found: extension #{ext}")
     end
   end
 end

@@ -1,4 +1,6 @@
 module Sowing
+  class DataFileNotFound < StandardError; end
+  class StrategyNotFound < StandardError; end
 end
 
 require 'pathname'
