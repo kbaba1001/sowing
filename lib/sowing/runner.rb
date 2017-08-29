@@ -38,7 +38,7 @@ class Sowing::Runner
 
     strategy.read_data(file).map {|row|
       proxy.mappings.each do |key, pproc|
-        # TODO skipできるときはした方が早くなるはず
+        # TODO if i can skip, i want to skip. Doing so will increase performance
         row[key.to_s] = pproc[string_to_hash(row.fetch(key.to_s))]
       end
 
