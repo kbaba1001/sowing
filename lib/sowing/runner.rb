@@ -1,25 +1,34 @@
 class Sowing::Runner
-  attr_reader :data_directory
+  attr_reader :data_directory, :proxy
 
   def initialize(data_directory: nil)
     @data_directory = Pathname(data_directory || Sowing::Configuration.config.default_data_directory)
+    @proxy = Sowing::DefinitionProxy.new
   end
 
-  def create(klass, filename: nil)
+  def create(klass, filename: nil, &block)
+    # proxy.instance_eval(&block) if block_given?
+
     find_file(klass, filename: filename) do |file, strategy|
-      strategy.create(klass, file)
+      strategy.read_data(file).each do |row|
+        strategy.create(klass, row)
+      end
     end
   end
 
   def create_or_do_nothing(klass, finding_key, filename: nil)
     find_file(klass, filename: filename) do |file, strategy|
-      strategy.create_or_do_nothing(klass, file, finding_key)
+      strategy.read_data(file).each do |row|
+        strategy.create_or_do_nothing(klass, row, finding_key)
+      end
     end
   end
 
   def create_or_update(klass, finding_key, filename: nil)
     find_file(klass, filename: filename) do |file, strategy|
-      strategy.create_or_update(klass, file, finding_key)
+      strategy.read_data(file).each do |row|
+        strategy.create_or_update(klass, row, finding_key)
+      end
     end
   end
 

@@ -38,4 +38,24 @@ class Strategies::TestActiveRecordYaml < Sowing::TestBase
     assert { user.created_at != user.updated_at }
     assert { user.last_name == 'Waelchi' }
   end
+
+  test 'insert relational data' do
+    @runner.create(User)
+
+    # TODO 次のインタフェースでルールを定義できるようにしたい。
+    @runner.create(Profile) do
+      mapping :user_id do |first_name, last_name|
+        User.find_by(
+          first_name: hash_string[:first_name],
+          last_name:  hash_string[:last_name]
+        ).id
+      end
+    end
+
+    profile = Profile.find_by(phone: '+1 312-742-2000')
+
+    assert { profile.phone == '+1 312-742-2000' }
+    assert { profile.address == '2001 N Clark St, Chicago, IL 60614 America' }
+    assert { profile.user.first_name == 'Carlotta' }
+  end
 end

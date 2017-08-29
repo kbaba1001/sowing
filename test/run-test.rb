@@ -18,11 +18,22 @@ require 'database_cleaner'
 ### migration
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'tmp/activerecord.db')
 ActiveRecord::Base.connection.execute('DROP TABLE IF EXISTS users;')
+ActiveRecord::Base.connection.execute('DROP TABLE IF EXISTS profiles;')
 ActiveRecord::Base.connection.execute(<<-SQL)
 CREATE TABLE users (
-  id INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
   first_name VARCHAR(255),
   last_name VARCHAR(255),
+  created_at TIMESTAMP DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+SQL
+ActiveRecord::Base.connection.execute(<<-SQL)
+CREATE TABLE profiles (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER,
+  address VARCHAR(255),
+  phone VARCHAR(255),
   created_at TIMESTAMP DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DATETIME DEFAULT CURRENT_TIMESTAMP
 );
