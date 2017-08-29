@@ -14,6 +14,7 @@ class Sowing::Runner
     end
   end
 
+  # TODO rename "create_or_skip"
   def create_or_do_nothing(klass, finding_key, filename: nil, &block)
     file, strategy = @selector.find(klass, filename)
 
@@ -38,6 +39,7 @@ class Sowing::Runner
 
     strategy.read_data(file).map {|row|
       proxy.mappings.each do |key, pproc|
+        # TODO skipできるときはした方が早くなるはず
         row[key.to_s] = pproc[string_to_hash(row.fetch(key.to_s))]
       end
 
