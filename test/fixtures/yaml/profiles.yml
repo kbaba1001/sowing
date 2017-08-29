@@ -1,0 +1,8 @@
+profile_1:
+  user_id: 'first_name: Carlotta, last_name: Wilkinson'
+  address: '2001 N Clark St, Chicago, IL 60614 America'
+  phone: '+1 312-742-2000'
+profile_2:
+  user_id: 'first_name: 中平, last_name: 薫'
+  address: '東京都新宿区新宿1-1-1'
+  phone: '090-1111-2222'

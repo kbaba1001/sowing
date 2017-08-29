@@ -23,8 +23,8 @@ Or install it yourself as:
 - seedに関わらずどこからでも使える
 - CSV, YAML からデータを投入できる
 - 投入しようとするデータが既にある場合、何もしないか更新するか選択できる
+- Relational Data の投入
 - ~~Pure Ruby~~ (現状はまだ Rails 依存のコードがあるが、将来的には Pure Ruby による実装にしたい)
-- ~~Relational Data の投入~~ (将来的に実装する)
 - inspired by [sprig](https://github.com/vigetlabs/sprig)
 
 ## 使い方
@@ -133,10 +133,10 @@ sowing.create(Book)
 `filename` を指定しない場合、`klass` をsnake cake の複数形に変換した名前で CSV か YAML ファイル を `db/seeds` 以下に探しに行きます。(例えば、`klass` が `User` の場合、 `users.(csv|yaml|yml)` を探します。)
 `filename` を指定する場合、 `new_users.csv` のように拡張子も含めて指定してください。
 
-### create_or_do_nothing(klass, finding_key, filename: nil)
+### create_or_skip(klass, finding_key, filename: nil)
 
 `#create` とほぼ同じですが、 `finding_key` で指定したカラムでDBを探索して一致するデータが見つかった場合、何もしません。
-同じスクリプトを複数回実行する可能性がある場合、 `create` より `create_or_do_nothing` を使用することを推奨します。
+同じスクリプトを複数回実行する可能性がある場合、 `create` より `create_or_skip` を使用することを推奨します。
 
 例:
 
@@ -146,15 +146,15 @@ sowing.create(Book)
 runner = Sowing::Runner.new
 
 # 1度目のデータ投入なので、users.csv からデータを投入する
-runner.create_or_do_nothing(User, :first_name)
+runner.create_or_skip(User, :first_name)
 
 # 上記で投入されたデータが存在するため、何もしない。
-runner.create_or_do_nothing(User, :first_name)
+runner.create_or_skip(User, :first_name)
 ```
 
 ### create_or_update(klass, finding_key, filename: nil)
 
-`#create_or_do_nothing` とほぼ同じですが、`finding_key` で指定したカラムでDBを探索して一致するデータが見つかった場合、
+`#create_or_skip` とほぼ同じですが、`finding_key` で指定したカラムでDBを探索して一致するデータが見つかった場合、
 データを更新します。
 
 例:
@@ -165,11 +165,11 @@ runner.create_or_do_nothing(User, :first_name)
 runner = Sowing::Runner.new
 
 # 1度目のデータ投入なので、users.csv からデータを投入する
-runner.create_or_do_nothing(User, :first_name)
+runner.create_or_skip(User, :first_name)
 
 # users.csv と update_users.csv で同じ first_name のデータがある場合は update_users.csv の内容で上書きする
 # update_users.csv にしかないデータは新規作成する
-runner.create_or_do_nothing(User, :first_name, filename: 'update_users.csv')
+runner.create_or_skip(User, :first_name, filename: 'update_users.csv')
 ```
 
 ## Development
