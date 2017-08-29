@@ -3,11 +3,11 @@ class Sowing::Runner
 
   def initialize(data_directory: nil)
     @data_directory = Pathname(data_directory || Sowing::Configuration.config.default_data_directory)
-    @file_selector = Sowing::FileSelector.new(@data_directory)
+    @selector = Sowing::Selector.new(@data_directory)
   end
 
   def create(klass, filename: nil, &block)
-    file, strategy = @file_selector.find(klass, filename)
+    file, strategy = @selector.find(klass, filename)
 
     create_rows(file, strategy, &block).each do |row|
       strategy.create(klass, row)
@@ -15,7 +15,7 @@ class Sowing::Runner
   end
 
   def create_or_do_nothing(klass, finding_key, filename: nil, &block)
-    file, strategy = @file_selector.find(klass, filename)
+    file, strategy = @selector.find(klass, filename)
 
     create_rows(file, strategy, &block).each do |row|
       strategy.create_or_do_nothing(klass, row, finding_key)
@@ -23,7 +23,7 @@ class Sowing::Runner
   end
 
   def create_or_update(klass, finding_key, filename: nil, &block)
-    file, strategy = @file_selector.find(klass, filename)
+    file, strategy = @selector.find(klass, filename)
 
     create_rows(file, strategy, &block).each do |row|
       strategy.create_or_update(klass, row, finding_key)

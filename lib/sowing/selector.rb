@@ -1,11 +1,11 @@
-# TODO rename
-class Sowing::FileSelector
+class Sowing::Selector
   attr_reader :data_directory
 
   def initialize(data_directory)
     @data_directory = data_directory
   end
 
+  # @return [Array<Pathname, Sowing::Strategies>]
   def find(klass, filename = nil)
     if filename
       find_file_from_filename(filename)
