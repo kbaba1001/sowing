@@ -21,6 +21,8 @@ module Sowing
       private
 
       def print_object_info(object)
+        return if ENV['SOWING_QUIET']
+
         print 'create: '
         p object
       end

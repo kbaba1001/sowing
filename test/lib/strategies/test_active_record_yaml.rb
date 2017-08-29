@@ -42,12 +42,11 @@ class Strategies::TestActiveRecordYaml < Sowing::TestBase
   test 'insert relational data' do
     @runner.create(User)
 
-    # TODO 次のインタフェースでルールを定義できるようにしたい。
     @runner.create(Profile) do
-      mapping :user_id do |first_name, last_name|
+      mapping :user_id do |hash|
         User.find_by(
-          first_name: hash_string[:first_name],
-          last_name:  hash_string[:last_name]
+          first_name: hash['first_name'],
+          last_name: hash['last_name']
         ).id
       end
     end

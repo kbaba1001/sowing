@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+ENV['SOWING_QUIET'] = 'true'
+
 ## load path
 require 'pathname'
 
