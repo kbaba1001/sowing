@@ -14,12 +14,11 @@ class Sowing::Runner
     end
   end
 
-  # TODO rename "create_or_skip"
-  def create_or_do_nothing(klass, finding_key, filename: nil, &block)
+  def create_or_skip(klass, finding_key, filename: nil, &block)
     file, strategy = @selector.find(klass, filename)
 
     create_rows(file, strategy, &block).each do |row|
-      strategy.create_or_do_nothing(klass, row, finding_key)
+      strategy.create_or_skip(klass, row, finding_key)
     end
   end
 

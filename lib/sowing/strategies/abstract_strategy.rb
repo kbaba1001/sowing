@@ -5,7 +5,7 @@ module Sowing
         raise NotImplementedError
       end
 
-      def create_or_do_nothing(klass, row, finding_key)
+      def create_or_skip(klass, row, finding_key)
         raise NotImplementedError
       end
 

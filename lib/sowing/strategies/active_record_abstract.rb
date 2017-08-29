@@ -7,7 +7,7 @@ module Sowing
         print_object_info(object)
       end
 
-      def create_or_do_nothing(klass, row, finding_key)
+      def create_or_skip(klass, row, finding_key)
         klass.find_or_initialize_by(finding_key => row[finding_key.to_s]) do |object|
           object.update!(row.to_hash)
 

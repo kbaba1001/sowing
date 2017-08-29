@@ -30,7 +30,7 @@ runner = Sowing::Runner.new
 # if exist db/seeds/users.(csv|yaml|yml), read data
 runner.create(User)
 
-runner.create_or_do_nothing(User, :first_name)
+runner.create_or_skip(User, :first_name)
 runner.create_or_update(User, :first_name)
 
 # change data root directory
