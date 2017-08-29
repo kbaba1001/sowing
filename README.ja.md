@@ -23,8 +23,8 @@ Or install it yourself as:
 - seedに関わらずどこからでも使える
 - CSV, YAML からデータを投入できる
 - 投入しようとするデータが既にある場合、何もしないか更新するか選択できる
+- Relational Data の投入
 - ~~Pure Ruby~~ (現状はまだ Rails 依存のコードがあるが、将来的には Pure Ruby による実装にしたい)
-- ~~Relational Data の投入~~ (将来的に実装する)
 - inspired by [sprig](https://github.com/vigetlabs/sprig)
 
 ## 使い方
